@@ -5,7 +5,7 @@ var gmarkers = [];
 
 app.controller('MainCtrl', function($scope) {
   $scope.cells = [{
-    "id": 2,
+    "id": 1,
     "cellTowers": [{
       "cellId": '',
       "locationAreaCode": '',
@@ -31,7 +31,7 @@ app.controller('MainCtrl', function($scope) {
         "locationAreaCode": '',
         "mobileCountryCode": '',
         "mobileNetworkCode": '',
-        "signalStrength": -60
+        "signalStrength": ''
       }]
     });
   };
