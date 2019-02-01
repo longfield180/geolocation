@@ -13,7 +13,34 @@ app.controller('MainCtrl', function($scope) {
       "mobileNetworkCode": '',
       "signalStrength": ''
     }]
-  }];
+  },{
+  "id": 2,
+  "cellTowers": [{
+    "cellId": 9341,
+    "locationAreaCode": 12710,
+    "mobileCountryCode": 255,
+    "mobileNetworkCode": 6,
+    "signalStrength": 28
+  }]
+},{
+  "id": 3,
+  "cellTowers": [{
+    "cellId": 9243,
+    "locationAreaCode": 12710,
+    "mobileCountryCode": 255,
+    "mobileNetworkCode": 6,
+    "signalStrength": 26
+  }]
+},{
+  "id": 4,
+  "cellTowers": [{
+    "cellId": 9401,
+    "locationAreaCode": 12710,
+    "mobileCountryCode": 255,
+    "mobileNetworkCode": 6,
+    "signalStrength": 17
+  }]
+}];
 
   $scope.index = $scope.cells.length;
 
@@ -207,6 +234,7 @@ function initMap() {
 function geolocator(searchType, cells, cellsLength, waps) {
 
   let cellTowers = [];
+  let checkLength = cellsLength
   const geolocatorUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyD72XGkolbzqHdVS3JE3WgPtfU7h8zVb4E";
 
   if (cells) {
@@ -219,8 +247,10 @@ function geolocator(searchType, cells, cellsLength, waps) {
         if (this.readyState === XMLHttpRequest.DONE && this.status != 200) {
           const data = JSON.parse(xhr.responseText);
           if (data.hasOwnProperty('error')) {
-            // Parse errors and display in a better format
+            // Reduce the length of the cell if there is an error
+            checkLength = checkLength -1
             alert(data.error.message);
+
             $('#cellSearch').modal('hide');
           }
         }
@@ -240,9 +270,8 @@ function geolocator(searchType, cells, cellsLength, waps) {
             cellTowers.push(cellDetails);
 
             placeMarker(data, cell, null, 'green');
-
             if (cellsLength > 1) {
-              if (cellTowers.length === cellsLength) {
+              if (cellTowers.length === checkLength) {
                 // Now you can triangulate
                 setTimeout(triangulate(cellTowers), 3000);
               };
@@ -315,7 +344,6 @@ function findWifi(wifiBssid, bssid) {
 
               $('#wifiSearch').modal('hide');
             }
-
             if (response.result != 200) {
               alert(wifiBssid +" "+response.desc);
             }
@@ -427,6 +455,7 @@ function triangulate(towers) {
   };
 
   placeMarker(data, null, null, 'red');
+  alert('Triagulations complete');
 }
 
 function numberParser(number) {
