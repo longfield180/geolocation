@@ -125,7 +125,6 @@ app.controller('MainCtrl', function($scope) {
       "signalStrength": -70
     });
   };
-
   $scope.removeMac = function(id) {
     if($scope.macs.length<=1){
       alert("MAC address cannot be less than 1");
@@ -156,7 +155,6 @@ app.controller('MainCtrl', function($scope) {
     "radius": ''
   }
   $scope.coord = defaultPoint;
-
   $scope.placeCoordinates = function(coord) {
     const coords = $scope.coord.details.split(",");
 
@@ -246,7 +244,7 @@ function geolocator(searchType, cells, cellsLength, waps) {
             if (cellsLength > 1) {
               if (cellTowers.length === cellsLength) {
                 // Now you can triangulate
-                setTimeout(triangulate(cellTowers), 10000);
+                setTimeout(triangulate(cellTowers), 3000);
               };
             }
 
@@ -311,8 +309,9 @@ function findWifi(wifiBssid, bssid) {
               const data = {
                 accuracy: response.data.range,
                 location: { lat: response.data.lat, lng: response.data.lon },
+                mac: name
               }
-              placeMarker(data, null, bssid, 'yellow');
+              placeMarker(data, null, bssidOne, 'yellow');
 
               $('#wifiSearch').modal('hide');
             }
@@ -330,7 +329,6 @@ function findWifi(wifiBssid, bssid) {
 
 function placeMarker(data, cell, waps, color) {
 
-
   const position = { lat: data.location.lat, lng: data.location.lng};
   let bounds = new google.maps.LatLngBounds();
   bounds.extend(position);
@@ -347,7 +345,7 @@ function placeMarker(data, cell, waps, color) {
         '</div>';
   } else if (waps){
     infoWindowContent += '<div class="col-md-6">' +
-        '<p><b>MAC Address: </b>'+ waps[0] +'</p>' +
+        '<p><b>MAC Address: </b>'+ data.mac +'</p>' +
         '</div>';
   }
 
