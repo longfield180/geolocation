@@ -7,11 +7,38 @@ app.controller('MainCtrl', function($scope) {
   $scope.cells = [{
     "id": 1,
     "cellTowers": [{
-      "cellId": '',
-      "locationAreaCode": '',
-      "mobileCountryCode": '',
-      "mobileNetworkCode": '',
-      "signalStrength": ''
+      "cellId": 9247,
+      "locationAreaCode": 12710,
+      "mobileCountryCode": 255,
+      "mobileNetworkCode": 6,
+      "signalStrength": 53
+    }]
+  },{
+    "id": 2,
+    "cellTowers": [{
+      "cellId": 9243,
+      "locationAreaCode": 12710,
+      "mobileCountryCode": 255,
+      "mobileNetworkCode": 6,
+      "signalStrength": 36
+    }]
+  },{
+    "id": 3,
+    "cellTowers": [{
+      "cellId": 9341,
+      "locationAreaCode": 12710,
+      "mobileCountryCode": 255,
+      "mobileNetworkCode": 6,
+      "signalStrength": 32
+    }]
+  },{
+    "id": 4,
+    "cellTowers": [{
+      "cellId": 9241,
+      "locationAreaCode": 12710,
+      "mobileCountryCode": 255,
+      "mobileNetworkCode": 6,
+      "signalStrength": 28
     }]
   }];
 
@@ -426,6 +453,7 @@ function removeMarkers() {
 }
 
 function triangulate(towers) {
+  console.log(towers, 'All towers');
 
   var totalSignalStrength = 0;
   for (var i = 0; i < towers.length; i++)
