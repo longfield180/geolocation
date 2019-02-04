@@ -7,38 +7,11 @@ app.controller('MainCtrl', function($scope) {
   $scope.cells = [{
     "id": 1,
     "cellTowers": [{
-      "cellId": 9247,
-      "locationAreaCode": 12710,
-      "mobileCountryCode": 255,
-      "mobileNetworkCode": 6,
-      "signalStrength": 53
-    }]
-  },{
-    "id": 2,
-    "cellTowers": [{
-      "cellId": 9243,
-      "locationAreaCode": 12710,
-      "mobileCountryCode": 255,
-      "mobileNetworkCode": 6,
-      "signalStrength": 36
-    }]
-  },{
-    "id": 3,
-    "cellTowers": [{
-      "cellId": 9341,
-      "locationAreaCode": 12710,
-      "mobileCountryCode": 255,
-      "mobileNetworkCode": 6,
-      "signalStrength": 32
-    }]
-  },{
-    "id": 4,
-    "cellTowers": [{
-      "cellId": 9241,
-      "locationAreaCode": 12710,
-      "mobileCountryCode": 255,
-      "mobileNetworkCode": 6,
-      "signalStrength": 28
+      "cellId": '',
+      "locationAreaCode": '',
+      "mobileCountryCode": '',
+      "mobileNetworkCode": '',
+      "signalStrength": ''
     }]
   }];
 
@@ -263,7 +236,7 @@ function geolocator(searchType, cells, cellsLength, waps) {
             const cellDetails = {
               latitude: data.location.lat,
               longitude: data.location.lng,
-              signalStrength: cell.cellTowers[0].signalStrength,
+              signalStrength: parseInt(cell.cellTowers[0].signalStrength),
               signalStrengthRatio: 1
             };
 
