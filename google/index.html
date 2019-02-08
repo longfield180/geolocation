@@ -88,7 +88,7 @@
                             <input type="text" class="form-control" ng-model="cell.cellTowers[0].locationAreaCode">
                           </div>
                           <div class="form-group col">
-                            <input type="text" class="form-control" ng-model="cell.cellTowers[0].cellId">
+                            <input type="text" class="form-control" ng-model="cell.cellTowers[0].cellId" id="cellId">
                           </div>
                           <div class="form-group col">
                             <input type="text" class="form-control" ng-model="cell.cellTowers[0].signalStrength">
@@ -180,7 +180,7 @@
 
                         <div class="form-row" data-ng-repeat="wap in waps track by wap.id">
                           <div class="form-group col">
-                            <input type="text" class="form-control" ng-model="wap.address">
+                            <input type="text" class="form-control" ng-model="wap.macAddress">
                           </div>
                           <div class="form-group col">
                             <input type="text" class="form-control" ng-model="wap.signalStrength">

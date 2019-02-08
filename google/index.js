@@ -63,8 +63,8 @@ app.controller('MainCtrl', function($scope) {
 
   // Build WAP JSON for Google Search
   $scope.waps = [
-    { "id": 1, "address": '', "signalStrength": -70},
-    { "id": 2, "address": '', "signalStrength": -70}
+    { "id": 1, "macAddress": '', "signalStrength": 8},
+    { "id": 2, "macAddress": '', "signalStrength": 8}
   ];
   $scope.wapIndex = $scope.waps.length;
   $scope.addNewWap = function() {
@@ -110,7 +110,7 @@ app.controller('MainCtrl', function($scope) {
   }
 
   // Build WAP JSON for Mylnikov Search
-  $scope.macs = [{ "id": 1, "address": '', "signalStrength": -70}]
+  $scope.macs = [{ "id": 1, "address": '', "signalStrength": 8}]
   $scope.macsIndex = $scope.macs.length;
   $scope.addNewMac = function() {
     if($scope.macs.length>=5){
@@ -178,9 +178,9 @@ function initMap() {
   let center = new google.maps.LatLng(0.0, 0.0);
   const myOptions = {
       zoom: 13,
-      // streetViewControl: true,
-      // mapTypeId: google.maps.MapTypeId.ROADMAP,
-      // disableDefaultUI: true,
+      streetViewControl: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true,
       mapTypeControl: true,
 
       mapTypeControlOptions: {
@@ -222,7 +222,7 @@ function geolocator(searchType, cells, cellsLength, waps) {
           if (data.hasOwnProperty('error')) {
             // Reduce the length of the cell if there is an error
             checkLength = checkLength -1
-            alert(data.error.message);
+            alert(`Error encountered - ${data.error.message}`);
 
             $('#cellSearch').modal('hide');
           }
@@ -260,7 +260,6 @@ function geolocator(searchType, cells, cellsLength, waps) {
       xhr.send(searchParams);
     });
   } else if (waps) {
-
     const searchParams = JSON.stringify(waps);
     const xhr = new XMLHttpRequest();
 
@@ -278,7 +277,14 @@ function geolocator(searchType, cells, cellsLength, waps) {
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         const data = JSON.parse(xhr.responseText);
         if (data.hasOwnProperty('location')) {
-          placeMarker(data, null, null, 'blue');
+          let searchMacs = ''
+          waps.wifiAccessPoints.forEach(function(item) {
+            searchMacs += item.macAddress+', ';
+          })
+
+          data.mac = searchMacs
+
+          placeMarker(data, null, waps, 'blue');
           $('#macSearch').modal('hide');
         }
       }
@@ -322,7 +328,7 @@ function findWifi(wifiBssid, bssid) {
             }
         });
       } else {
-        alert('Please MAC Address format');
+        alert('Please enter MAC Address');
       }
   });
   return false;
@@ -365,24 +371,9 @@ function placeMarker(data, cell, waps, color) {
   const marker = new google.maps.Marker({
     position: position,
     map: map,
-    // icon: {
-    //     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-    //     strokeColor: `${color}`,
-    //     scale: 3
-    // },
-    icon:{
-      path: 'm 12,2.4000002 c -2.7802903,0 -5.9650002,1.5099999 -5.9650002,5.8299998 0,1.74375 1.1549213,3.264465 2.3551945,4.025812 1.2002732,0.761348 2.4458987,0.763328 2.6273057,2.474813 L 12,24 12.9825,14.68 c 0.179732,-1.704939 1.425357,-1.665423 2.626049,-2.424188 C 16.809241,11.497047 17.965,9.94 17.965,8.23 17.965,3.9100001 14.78029,2.4000002 12,2.4000002 Z',
-      fillColor: `${color}`,
-      fillOpacity: 1.0,
-      strokeColor: '#000000',
-      strokeWeight: 1,
-      scale: 2,
-      anchor: new google.maps.Point(12, 24),
-    },
-    // icon: `assets/${color}.png`,
-    // icon: {
-    //   url: "http://maps.google.com/mapfiles/ms/icons/"+color+"-dot.png"
-    // }
+    icon: {
+      url: "http://maps.google.com/mapfiles/ms/icons/"+color+"-dot.png"
+    }
   });
 
   // Allow each marker to have an info window
