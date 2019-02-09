@@ -417,8 +417,6 @@ function removeMarkers() {
 }
 
 function triangulate(towers) {
-  console.log(towers, 'All towers');
-
   var totalSignalStrength = 0;
   for (var i = 0; i < towers.length; i++)
   totalSignalStrength += towers[i].signalStrength;
