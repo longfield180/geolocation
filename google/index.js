@@ -165,7 +165,7 @@ app.controller('MainCtrl', function($scope) {
         location: { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
       }
 
-      placeMarker(data, null, null, 'blue');
+      placeMarker(data, null, null, 'pink');
       $('#enterCoordinates').modal('hide');
 
     } else {
