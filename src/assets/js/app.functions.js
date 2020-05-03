@@ -1,208 +1,5 @@
-var app = angular.module('geolocation', []);
-var map;
 var status = false;
 var gmarkers = [];
-
-app.controller('MainCtrl', function($scope) {
-  $scope.cells = [{
-    "id": 1,
-    "cellTowers": [{
-      "cellId": '',
-      "locationAreaCode": '',
-      "mobileCountryCode": '',
-      "mobileNetworkCode": '',
-      "signalStrength": ''
-    }]
-  }];
-
-  $scope.index = $scope.cells.length;
-
-  $scope.addNewCell = function() {
-    if($scope.cells.length>=5){
-      alert("Cell towers cannot be more than 5");
-      return;
-    }
-
-    var newItemNo = ++$scope.index;
-    $scope.cells.push({
-      "id": newItemNo,
-      "cellTowers": [{
-        "cellId": '',
-        "locationAreaCode": '',
-        "mobileCountryCode": '',
-        "mobileNetworkCode": '',
-        "signalStrength": ''
-      }]
-    });
-  };
-  $scope.removeCell = function(id) {
-    if($scope.cells.length<=1){
-      alert("Cell towers cannot be less than 1");
-      return;
-    }
-
-    var index = -1;
-    var comArr = eval( $scope.cells );
-    for( var i = 0; i < comArr.length; i++ ) {
-      if( comArr[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    if( index === -1 ) {
-    	alert( "Something gone wrong" );
-    }
-
-    $scope.cells.splice( index, 1 );
-  };
-  $scope.cellTowerSearch = function() {
-    removeMarkers();
-    geolocator('cells', $scope.cells, $scope.cells.length);
-  }
-
-  // Build WAP JSON for Google Search
-  $scope.waps = [
-    { "id": 1, "macAddress": '', "signalStrength": 8},
-    { "id": 2, "macAddress": '', "signalStrength": 8}
-  ];
-  $scope.wapIndex = $scope.waps.length;
-  $scope.addNewWap = function() {
-    if($scope.waps.length>=5){
-      alert("MAC address cannot be more than 5");
-      return;
-    }
-
-    var newItemNo = ++$scope.wapIndex;
-    $scope.waps.push({
-      "id": newItemNo,
-      "macAddress": '',
-      "signalStrength": -70
-    });
-  };
-  $scope.removeWap = function(id) {
-    if($scope.waps.length<=2){
-      alert("MAC address cannot be less than 2");
-      return;
-    }
-
-    var index = -1;
-    var comArr = eval( $scope.waps );
-    for( var i = 0; i < comArr.length; i++ ) {
-      if( comArr[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    if( index === -1 ) {
-      alert( "Something gone wrong" );
-    }
-
-    $scope.waps.splice( index, 1 );
-  };
-  $scope.wapSearch = function() {
-    const wapDetails = {
-      "considerIp": "false",
-      "wifiAccessPoints": $scope.waps
-    }
-    geolocator('waps', null, null, wapDetails);
-  }
-
-  // Build WAP JSON for Mylnikov Search
-  $scope.macs = [{ "id": 1, "address": '', "signalStrength": 8}]
-  $scope.macsIndex = $scope.macs.length;
-  $scope.addNewMac = function() {
-    if($scope.macs.length>=5){
-      alert("MAC address cannot be more than 5");
-      return;
-    }
-
-    var newItemNo = ++$scope.macsIndex;
-    $scope.macs.push({
-      "id": newItemNo,
-      "address": '',
-      "signalStrength": -70
-    });
-  };
-  $scope.removeMac = function(id) {
-    if($scope.macs.length<=1){
-      alert("MAC address cannot be less than 1");
-      return;
-    }
-
-    var index = -1;
-    var comArr = eval( $scope.macs );
-    for( var i = 0; i < comArr.length; i++ ) {
-      if( comArr[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    if( index === -1 ) {
-      alert( "Something gone wrong" );
-    }
-
-    $scope.macs.splice( index, 1 );
-  };
-  $scope.macSearch = function() {
-    bssidSearch($scope.macs, $scope.macsIndex);
-  }
-
-  const defaultPoint = {
-    "details": '',
-    "radius": ''
-  }
-  $scope.coord = defaultPoint;
-  $scope.placeCoordinates = function(coord) {
-    const coords = $scope.coord.details.split(",");
-
-    if ($scope.coord.details && $scope.coord.radius) {
-      const data = {
-        accuracy: null,
-        radius: $scope.coord.radius,
-        location: { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
-      }
-
-      placeMarker(data, null, null, 'pink');
-      $('#enterCoordinates').modal('hide');
-
-    } else {
-      alert ('All fields are required');
-    }
-  }
-});
-
-function initMap() {
-  let center = new google.maps.LatLng(0.0, 0.0);
-  const myOptions = {
-      zoom: 13,
-      streetViewControl: true,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      disableDefaultUI: true,
-      mapTypeControl: true,
-
-      mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          position: google.maps.ControlPosition.TOP_RIGHT
-      },
-      zoomControl: true,
-      zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.SMALL,
-          position: google.maps.ControlPosition.RIGHT_CENTER
-      },
-      scaleControl: true,
-      streetViewControl: false
-  };
-
-  map = new google.maps.Map(document.getElementById('map'), myOptions);
-  map.setZoom(2);
-  // map.setTilt(50); What does this do?
-
-  center = new google.maps.LatLng(0.0, 0.0);
-  map.setCenter(center);
-}
 
 function geolocator(searchType, cells, cellsLength, waps) {
 
@@ -302,8 +99,6 @@ function bssidSearch(macs) {
   bssid.forEach(function(mac) {
     findWifi(mac, bssid)
   });
-
-
 }
 
 function findWifi(wifiBssid, bssid) {
@@ -460,4 +255,11 @@ function parseString(macs){
 
   searchString = parsedMacs.join(",");
   return searchString
+}
+
+function combainSearch(waps) {
+  $.post(`https://cps.combain.com?key=jmfxzida7a0857qbgfg1`, { waps },
+    function(response, status) {
+      console.log(response);
+   });
 }
