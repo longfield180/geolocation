@@ -1,10 +1,9 @@
-html, body {
-    height: 100%;
-    width: 100%;
-    font-family: 'Open Sans', sans-serif;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
 }
-
-
 
 #map {
   height: 80vh;
@@ -16,12 +15,13 @@ html, body {
 }
 
 .mapBox {
-  position:relative;
+  position: relative;
 }
 
 .boxSearch {
   padding: 0 0 20px 0;
 }
+
 .feather {
   width: 16px;
   height: 16px;
@@ -37,7 +37,8 @@ html, body {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Behind the navbar */
+  z-index: 100;
+  /* Behind the navbar */
   /* padding: 0; */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
@@ -45,11 +46,13 @@ html, body {
 .sidebar-sticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 48px; /* Height of navbar */
+  top: 48px;
+  /* Height of navbar */
   height: calc(100vh - 48px);
   padding-top: .5rem;
   overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-y: auto;
+  /* Scrollable contents if viewport is shorter than content. */
 }
 
 .sidebar .nav-link {
@@ -109,8 +112,13 @@ html, body {
  * Utilities
  */
 
-.border-top { border-top: 1px solid #e5e5e5; }
-.border-bottom { border-bottom: 1px solid #e5e5e5; }
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
 
 .boxHeader {
   padding: 0 16px;
@@ -121,8 +129,8 @@ html, body {
 
 .boxHeader h6 {
   margin-bottom: 0;
-  padding:10px;
-  color:#fff;
+  padding: 10px;
+  color: #fff;
   font-weight: bold;
 }
 
@@ -142,14 +150,21 @@ html, body {
   border-bottom-left-radius: .25rem;
 }
 
-.modal-dialog {
+#cellSearch .modal-dialog {
   max-width: 800px !important;
 }
 
-.modal-button {
-  margin: 0 20px;
+#macSearch .modal-dialog {
+  max-width: 600px !important;
 }
 
 .info_content {
   width: 300px;
+}
+
+.btn-header {
+  padding: .15rem .35rem;
+  font-size: .675rem;
+  text-transform: uppercase;
+  line-height: 1.5;
 }
