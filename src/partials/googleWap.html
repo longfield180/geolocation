@@ -1,0 +1,48 @@
+<div ng-controller="GoogleWapCtrl" class="modal fade" id="macSearch" tabindex="-1" role="dialog"
+  aria-labelledby="macSearch" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="macSearch">WiFi Access Point Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="card card-body">
+
+          <form>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="inputPassword4">MAC</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputEmail4">RSSI</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputPassword4"></label>
+              </div>
+            </div>
+
+            <div class="form-row" data-ng-repeat="wap in waps track by wap.id">
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="wap.macAddress">
+              </div>
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="wap.signalStrength">
+              </div>
+
+              <div class="form-group col">
+                <button class="btn btn-danger" ng-click="removeWap(wap.id)">-</button>
+              </div>
+            </div>
+
+            <button class="btn btn-success mb-2 btn-sm" ng-click="wapSearch()">Locate WAPS</button>
+            <button class="btn btn-primary mb-2 btn-sm float-right" ng-click="addNewWap()">Add MAC</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

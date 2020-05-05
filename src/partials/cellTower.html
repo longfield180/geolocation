@@ -1,0 +1,67 @@
+<!-- Modal -->
+<div ng-controller="CellTowerCtrl" class="modal fade" id="cellSearch" tabindex="-1" role="dialog"
+  aria-labelledby="cellSearch" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cellTower">Cell Tower Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="card card-body">
+          <form>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="inputEmail4">MCC</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputPassword4">MNC</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputPassword4">LAC</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputEmail4">Cell ID</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputEmail4">RSSI</label>
+              </div>
+              <div class="form-group col">
+                <label for="inputPassword4"></label>
+              </div>
+            </div>
+
+            <div class="form-row" data-ng-repeat="cell in cells track by cell.id">
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="cell.cellTowers[0].mobileCountryCode">
+              </div>
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="cell.cellTowers[0].mobileNetworkCode">
+              </div>
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="cell.cellTowers[0].locationAreaCode">
+              </div>
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="cell.cellTowers[0].cellId" id="cellId">
+              </div>
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="cell.cellTowers[0].signalStrength">
+              </div>
+
+              <div class="form-group col">
+                <button class="btn btn-danger" ng-click="removeCell(cell.id)">-</button>
+              </div>
+            </div>
+
+            <button class="btn btn-success mb-2 btn-sm" ng-click="cellTowerSearch()">Search</button>
+            <button class="btn btn-primary mb-2 btn-sm float-right" ng-click="addNewCell()">Add Cell</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
