@@ -1,0 +1,44 @@
+<div ng-controller="GoogleCoordCtrl" class="modal fade" id="enterCoordinates" tabindex="-1" role="dialog"
+  aria-labelledby="enterCoordinates" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Coordinates</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="card card-body">
+          <form>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="coordinates">Latitude, Longitude</label>
+              </div>
+
+              <div class="form-group col">
+                <label for="radius">Radius</label>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="coord.details" placeholder="Latitude, Longitude"
+                  required>
+              </div>
+              <!-- <div class="form-group col">
+                  <input type="text" class="form-control" ng-model="coord.longitude" placeholder="Longitude" required>
+                </div> -->
+              <div class="form-group col">
+                <input type="text" class="form-control" ng-model="coord.radius" placeholder="Radius" required>
+              </div>
+            </div>
+
+            <button class="btn btn-success mb-2 btn-sm" ng-click="placeCoordinates(coord)">Place Marker</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

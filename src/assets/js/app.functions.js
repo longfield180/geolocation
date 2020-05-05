@@ -5,7 +5,7 @@ function geolocator(searchType, cells, cellsLength, waps) {
 
   let cellTowers = [];
   let checkLength = cellsLength
-  const geolocatorUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCGqUEHaduCOYlZe24Rci-0VS4EGfJ6520";
+  const geolocatorUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAyMdtbxfVibu7R03VicOXQOcudtmKYciU";
 
   if (cells) {
     cells.forEach(function (cell, index){
