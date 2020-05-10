@@ -57,7 +57,9 @@ app.controller('CombainCtrl', function($scope) {
     const wapDetails = {
       "wifiAccessPoints": $scope.combainPoints
     }
-    combainSearch(wapDetails);
+
+    pointSearch(JSON.stringify(wapDetails), 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1');
+
   }
 });
 

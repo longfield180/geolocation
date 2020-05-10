@@ -52,7 +52,6 @@ app.controller('CellTowerCtrl', function($scope) {
     $scope.cells.splice( index, 1 );
   };
   $scope.cellTowerSearch = function() {
-    console.log($scope.cells);
     removeMarkers();
     geolocator('cells', $scope.cells, $scope.cells.length);
   }
