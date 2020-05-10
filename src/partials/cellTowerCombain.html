@@ -1,10 +1,10 @@
 <!-- Modal -->
-<div ng-controller="CellTowerCtrl" class="cellSearch modal fade" id="cellSearch" tabindex="-1" role="dialog"
-  aria-labelledby="cellSearch" aria-hidden="true">
+<div ng-controller="CellTowerCombainCtrl" class="cellSearch modal fade" id="cellSearchCombain" tabindex="-1"
+  role="dialog" aria-labelledby="cellSearchCombain" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="cellTower">Cell Tower Search</h5>
+        <h5 class="modal-title" id="cellTower">Cell Tower Search - Combain</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -14,6 +14,16 @@
         <div class="card card-body">
 
           <form>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="inputEmail4">Radio Type</label>
+                <select class="form-control" ng-model="towers.radioType" ng-change="getOption()">
+                  <option value=" lte">LTE</option>
+                  <option value="gsm">GSM</option>
+                  <option value="wcdma">CDMA</option>
+                </select>
+              </div>
+            </div>
             <div class="form-row">
               <div class="form-group col">
                 <label for="inputEmail4">MCC</label>
@@ -35,25 +45,25 @@
               </div>
             </div>
 
-            <div class="form-row" data-ng-repeat="cell in cells track by cell.id">
+            <div class="form-row" data-ng-repeat="tower in towers.cellTowers track by tower.id">
               <div class="form-group col">
-                <input type="text" class="form-control" ng-model="cell.cellTowers[0].mobileCountryCode">
+                <input type="text" class="form-control" ng-model="tower.mobileCountryCode">
               </div>
               <div class="form-group col">
-                <input type="text" class="form-control" ng-model="cell.cellTowers[0].mobileNetworkCode">
+                <input type="text" class="form-control" ng-model="tower.mobileNetworkCode">
               </div>
               <div class="form-group col">
-                <input type="text" class="form-control" ng-model="cell.cellTowers[0].locationAreaCode">
+                <input type="text" class="form-control" ng-model="tower.locationAreaCode">
               </div>
               <div class="form-group col">
-                <input type="text" class="form-control" ng-model="cell.cellTowers[0].cellId" id="cellId">
+                <input type="text" class="form-control" ng-model="tower.cellId" id="cellId">
               </div>
               <div class="form-group col">
-                <input type="text" class="form-control" ng-model="cell.cellTowers[0].signalStrength">
+                <input type="text" class="form-control" ng-model="tower.signalStrength">
               </div>
 
               <div class="form-group col">
-                <button class="btn btn-danger" ng-click="removeCell(cell.id)">-</button>
+                <button class="btn btn-danger" ng-click="removeCell(tower.id)">-</button>
               </div>
             </div>
 

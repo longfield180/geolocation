@@ -10,8 +10,8 @@ function initMap() {
       mapTypeControl: true,
 
       mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-          position: google.maps.ControlPosition.TOP_RIGHT
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+          position: google.maps.ControlPosition.LEFT_CENTER,
       },
       zoomControl: true,
       zoomControlOptions: {

@@ -257,9 +257,47 @@ function parseString(macs){
   return searchString
 }
 
-function combainSearch(waps) {
-  $.post(`https://cps.combain.com?key=jmfxzida7a0857qbgfg1`, { waps },
+// function combainSearch(waps) {
+//   removeMarkers();
+
+//   $.post(`https://cps.combain.com?key=jmfxzida7a0857qbgfg1`, { waps },
+//     function(response, status) {
+//       console.log(response);
+//    });
+// }
+
+function pointSearch(waps, url, type) {
+  removeMarkers();
+
+  const parser = {
+    uniwired: ((response, waps) => {
+      const mac = JSON.parse(waps).wifi.map(point => {
+        return point.bssid
+      }).join(', ');
+
+      if(response.status !== 'error') {
+        const data = {
+          accuracy: response.accuracy,
+          location: { lat: response.lat, lng: response.lon },
+          mac: name
+        }
+        placeMarker(data, null, bssid, 'yellow');
+        return;
+      }
+      
+      alert(response.message)
+      
+    }),
+
+    combainCell: (args => {
+      console.log(args)
+    })
+  }
+
+  
+
+  $.post(url, waps,
     function(response, status) {
-      console.log(response);
+      parser[type](response, waps)
    });
 }
