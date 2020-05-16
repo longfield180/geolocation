@@ -1,6 +1,9 @@
 app.controller('UniwiredLabsCtrl', function($scope) {
 
-  $scope.uniwiredPoints = [{ "id": 1, "bssid": '', "signal": -51}]
+  $scope.uniwiredPoints = [
+    { "id": 1, "bssid": '', "signal": -70}, 
+    { "id": 2, "bssid": '', "signal": -70}
+  ]
   $scope.uniwiredIndex = $scope.uniwiredPoints.length;
   $scope.addNewPoint = function() {
     if($scope.uniwiredPoints.length>=5){
@@ -18,7 +21,7 @@ app.controller('UniwiredLabsCtrl', function($scope) {
 
   $scope.removePoint = function(id) {
     if($scope.uniwiredPoints.length<=2){
-      alert("BSSID cannot be less than 1");
+      alert("BSSID cannot be less than 2");
       return;
     }
 

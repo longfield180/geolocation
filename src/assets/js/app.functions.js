@@ -130,7 +130,6 @@ function findWifi(wifiBssid, bssid) {
 }
 
 function placeMarker(data, cell, waps, color) {
-
   const position = { lat: data.location.lat, lng: data.location.lng};
   let bounds = new google.maps.LatLngBounds();
   bounds.extend(position);
@@ -147,7 +146,7 @@ function placeMarker(data, cell, waps, color) {
         '</div>';
   } else if (waps){
     infoWindowContent += '<div class="col-md-6">' +
-        '<p><b>MAC Address: </b>'+ data.mac +'</p>' +
+        '<p><b>MAC Address(s): </b>'+ data.mac +'</p>' +
         '</div>';
   }
 
@@ -271,7 +270,7 @@ function pointSearch(waps, url, type) {
 
   const parser = {
     uniwired: ((response, waps) => {
-      const mac = JSON.parse(waps).wifi.map(point => {
+      const bssid = JSON.parse(waps).wifi.map(point => {
         return point.bssid
       }).join(', ');
 
@@ -279,9 +278,10 @@ function pointSearch(waps, url, type) {
         const data = {
           accuracy: response.accuracy,
           location: { lat: response.lat, lng: response.lon },
-          mac: name
+          mac: bssid
         }
-        placeMarker(data, null, bssid, 'yellow');
+        placeMarker(data, null, waps, 'yellow');
+        $(`#${type}MacSearch`).modal('hide');
         return;
       }
       
