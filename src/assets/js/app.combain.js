@@ -42,13 +42,20 @@ app.controller('CombainCtrl', function($scope) {
   };
 
   $scope.ComabinSearch = function() {
+    const points = parsePoints($scope.combainPoints)
     const wapDetails = {
-      "wifiAccessPoints": $scope.combainPoints
+      "wifiAccessPoints": points
     }
 
-    pointSearch(JSON.stringify(wapDetails), 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1');
-
+    pointSearch(JSON.stringify(wapDetails), 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1', 'combain');
   }
 });
+
+function parsePoints(points) {
+  return points.map((point) => {
+    const {id, ...rest} = point
+    return rest;
+  })
+}
 
 
