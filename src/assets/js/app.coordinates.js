@@ -15,7 +15,7 @@ app.controller('GoogleCoordCtrl', function($scope) {
         location: { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
       }
 
-      placeMarker(data, null, null, 'pink');
+      placeMarker(data, null, null, 'green');
       $('#enterCoordinates').modal('hide');
 
     } else {
