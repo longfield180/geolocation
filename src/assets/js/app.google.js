@@ -1,8 +1,8 @@
 app.controller('GoogleWapCtrl', function($scope) {
     // Build WAP JSON for Google Search
     $scope.waps = [
-      { "id": 1, "macAddress": '', "signalStrength": 8},
-      { "id": 2, "macAddress": '', "signalStrength": 8}
+      { "id": 1, "macAddress": '', "signalStrength": -70},
+      { "id": 2, "macAddress": '', "signalStrength": -70}
     ];
     $scope.wapIndex = $scope.waps.length;
     $scope.addNewWap = function() {

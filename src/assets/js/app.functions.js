@@ -280,13 +280,17 @@ function pointSearch(waps, url, type) {
           location: { lat: response.lat, lng: response.lon },
           mac: bssid
         }
-        placeMarker(data, null, waps, 'yellow');
+        placeMarker(data, null, waps, 'purple');
         $(`#${type}MacSearch`).modal('hide');
         return;
       }
       
       alert(response.message)
       
+    }),
+
+    combain: ((response, waps) => {
+      console.log(waps, 'waps')
     }),
 
     combainCell: (args => {
@@ -298,6 +302,8 @@ function pointSearch(waps, url, type) {
 
   $.post(url, waps,
     function(response, status) {
+      console.log(response)
+      console.log(status)
       parser[type](response, waps)
    });
 }

@@ -1,5 +1,5 @@
 app.controller('MyLinkovCtrl', function($scope) {
-  $scope.macs = [{ "id": 1, "address": '', "signalStrength": 8}]
+  $scope.macs = [{ "id": 1, "address": '', "signalStrength": -70}]
   $scope.macsIndex = $scope.macs.length;
   $scope.addNewMac = function() {
     if($scope.macs.length>=5){
