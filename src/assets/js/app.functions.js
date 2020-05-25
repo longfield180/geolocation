@@ -81,7 +81,7 @@ function geolocator(searchType, cells, cellsLength, waps) {
 
           data.mac = searchMacs
 
-          placeMarker(data, null, waps, 'blue');
+          placeMarker(data, null, waps, 'green');
           $('#macSearch').modal('hide');
         }
       }
