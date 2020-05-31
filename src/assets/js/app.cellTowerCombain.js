@@ -60,8 +60,10 @@ app.controller('CellTowerCombainCtrl', function($scope) {
     $scope.towers.cellTowers.splice( index, 1 );
   };
   $scope.cellTowerSearch = function() {
+
+    console.log($scope.towers.cellTowers);
     removeMarkers();
-    pointSearch(JSON.stringify($scope.towers.cellTowers), 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1', 'combainCell');
+    // pointSearch(JSON.stringify($scope.towers.cellTowers), 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1', 'combainCell');
   }
 
 
