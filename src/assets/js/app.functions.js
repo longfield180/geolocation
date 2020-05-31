@@ -262,7 +262,7 @@ function parseString(macs){
 //   $.post(`https://cps.combain.com?key=jmfxzida7a0857qbgfg1`, { waps },
 //     function(response, status) {
 //       console.log(response);
-//    });
+//   });
 // }
 
 function pointSearch(waps, url, type) {
@@ -286,11 +286,10 @@ function pointSearch(waps, url, type) {
       }
       
       alert(response.message)
-      
     }),
 
     combain: ((response, waps) => {
-      console.log(waps, 'waps')
+      alert(response)
     }),
 
     combainCell: (args => {
@@ -298,12 +297,8 @@ function pointSearch(waps, url, type) {
     })
   }
 
-  
-
   $.post(url, waps,
     function(response, status) {
-      console.log(response)
-      console.log(status)
       parser[type](response, waps)
    });
 }
