@@ -45,20 +45,20 @@ app.controller('CombainCtrl', function($scope, $http) {
 
   $scope.ComabinSearch = function() {
     const points = parsePoints($scope.combainPoints)
-    const wapDetails = {
-      "wifiAccessPoints": points
-    }
 
-    // axios.post($scope.url, wapDetails, options)
-    // .then((res) => {
-    //   alert(res)
-    // })
-    // .catch((err) => {
-    //   alert(err.message)
-    // })
+    
+    // $scope.wapDetails = {
+    //   "wifiAccessPoints": points
+    // }
 
-    pointSearch(wapDetails, 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1', 'combain');
+    $.post(`${$scope.url}&wifi=00:26:3e:06:71:44;00:26:3e:06:71:45`,
+    function(response, status) {
+      alert(response);
+      console.log(response)
+    });
   }
+
+  const points = parsePoints($scope.combainPoints)
 });
 
 function parsePoints(points) {
@@ -67,13 +67,3 @@ function parsePoints(points) {
     return rest;
   })
 }
-
-// date: Sun, 31 May 2020 09:57:14 GMT
-// content-type: application/json; charset=UTF-8
-// content-length: 58
-// server: Apache/2.4.39 (Amazon) OpenSSL/1.0.2k-fips PHP/7.0.33
-// x-powered-by: PHP/7.0.33
-// access-control-allow-headers: Content-Type
-// access-control-allow-methods: OPTIONS, GET, POST
-// access-control-allow-origin: *
-// cache-control: no-cache
