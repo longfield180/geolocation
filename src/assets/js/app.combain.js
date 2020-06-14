@@ -1,5 +1,4 @@
 app.controller('CombainCtrl', function($scope, $http) {
-  $scope.method = 'POST';
   $scope.url = 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1';
 
   $scope.combainPoints = [
@@ -46,19 +45,12 @@ app.controller('CombainCtrl', function($scope, $http) {
   $scope.ComabinSearch = function() {
     const points = parsePoints($scope.combainPoints)
 
-    
-    // $scope.wapDetails = {
-    //   "wifiAccessPoints": points
-    // }
+    $scope.wapDetails = {
+      "wifiAccessPoints": points
+    }
 
-    $.post(`${$scope.url}&wifi=00:26:3e:06:71:44;00:26:3e:06:71:45`,
-    function(response, status) {
-      alert(response);
-      console.log(response)
-    });
+    pointSearch(angular.toJson($scope.wapDetails, true), $scope.url, 'combain');
   }
-
-  const points = parsePoints($scope.combainPoints)
 });
 
 function parsePoints(points) {

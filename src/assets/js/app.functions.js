@@ -256,20 +256,11 @@ function parseString(macs){
   return searchString
 }
 
-// function combainSearch(waps) {
-//   removeMarkers();
-
-//   $.post(`https://cps.combain.com?key=jmfxzida7a0857qbgfg1`, { waps },
-//     function(response, status) {
-//       console.log(response);
-//   });
-// }
-
 function pointSearch(waps, url, type) {
   removeMarkers();
 
   const parser = {
-    uniwired: ((response, waps) => {
+    uniwired: ((response, waps, status) => {
       const bssid = JSON.parse(waps).wifi.map(point => {
         return point.bssid
       }).join(', ');
@@ -283,22 +274,48 @@ function pointSearch(waps, url, type) {
         placeMarker(data, null, waps, 'purple');
         $(`#${type}MacSearch`).modal('hide');
         return;
+      } else if(status === 'error') {
+        console.log(status, 'error status')
+        console.log(response.responseText, 'jqXHR')
       }
       
       alert(response.message)
     }),
 
-    combain: ((response, waps) => {
-      alert(response)
+    combain: ((response, waps, status) => {
+      const { wifiAccessPoints } = JSON.parse(waps);
+      const bssid = wifiAccessPoints.map(point => {
+        return point.macAddress
+      }).join(', ');
+
+      if(status === 'error') {
+        alert(JSON.parse(response).error.message)
+      } else {
+        const data = {
+          ...response,
+          mac: bssid
+        }
+        placeMarker(data, null, waps, 'blue');
+        $(`#${type}MacSearch`).modal('hide');
+      }
     }),
 
-    combainCell: (args => {
-      console.log(args)
+    combainCell: ((response, waps, status) => {
+      if(status === 'error') {
+        alert(JSON.parse(response).error.message)
+      } else {
+        const data = {
+          ...response,
+        }
+        placeMarker(data, null, null, 'blue');
+        $('#cellSearchCombain').modal('hide');
+      }
     })
   }
 
-  $.post(url, waps,
-    function(response, status) {
-      parser[type](response, waps)
-   });
+  $.post(url, waps, function (response, status) {
+    parser[type](response, waps, status)
+  }).fail(function (jqXHR, status, error) {
+    parser[type](jqXHR.responseText, waps, status)
+  });
 }
