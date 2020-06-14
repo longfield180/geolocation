@@ -15,13 +15,28 @@
 
           <form>
             <div class="form-row">
-              <div class="form-group col">
-                <label for="inputEmail4">Radio Type</label>
-                <select class="form-control" ng-model="towers.radioType" ng-change="getOption()">
-                  <option value=" lte">LTE</option>
-                  <option value="gsm">GSM</option>
-                  <option value="wcdma">CDMA</option>
-                </select>
+              <div class="form-group col d-flex justify-content-start">
+                <div class="form-check mr-2">
+                  <input class="form-check-input" ng-model="towers.radioType" type="radio" name="radioType" id="wcdma"
+                    value="wcdma">
+                  <label class="form-check-label" for="wcdma">
+                    WCDMA
+                  </label>
+                </div>
+                <div class="form-check mr-2">
+                  <input class="form-check-input" ng-model="towers.radioType" type="radio" name="radioType" id="lte"
+                    value="lte">
+                  <label class="form-check-label" for="exampleRadios2">
+                    LTE
+                  </label>
+                </div>
+                <div class="form-check mr-2">
+                  <input class="form-check-input" ng-model="towers.radioType" type="radio" name="radioType" id="cdma"
+                    value="cdma">
+                  <label class="form-check-label" for="cdma">
+                    CDMA
+                  </label>
+                </div>
               </div>
             </div>
             <div class="form-row">

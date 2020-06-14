@@ -1,21 +1,22 @@
 app.controller('CellTowerCombainCtrl', function($scope) {
+  $scope.url = 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1';
 
   $scope.towers = {
-    radioType: '',
+    radioType: 'wcdma',
     "cellTowers":[{
       "id": 1,
-      "mobileCountryCode": 240,
-      "mobileNetworkCode": 5,
-      "locationAreaCode": 25,
-      "cellId": 1662835,
-      "signalStrength": -64
+      "mobileCountryCode": '',
+      "mobileNetworkCode": '',
+      "locationAreaCode": '',
+      "cellId": '',
+      "signalStrength": -70
     },{
       "id": 2,
-      "mobileCountryCode": 240,
-      "mobileNetworkCode": 5,
-      "locationAreaCode": 25,
-      "cellId": 1639963,
-      "signalStrength": -80
+      "mobileCountryCode": '',
+      "mobileNetworkCode": '',
+      "locationAreaCode": '',
+      "cellId": '',
+      "signalStrength": -70
     }]
   };
 
@@ -30,12 +31,11 @@ app.controller('CellTowerCombainCtrl', function($scope) {
     var newItemNo = ++$scope.index;
     $scope.towers.cellTowers.push({
       "id": newItemNo,
+      "mobileCountryCode": '',
+      "mobileNetworkCode": '',
+      "locationAreaCode": '',
       "cellId": '',
-      "mobileCountryCode": 240,
-      "mobileNetworkCode": 5,
-      "locationAreaCode": 25,
-      "cellId": 1639963,
-      "signalStrength": -80
+      "signalStrength": -70
     });
   };
   $scope.removeCell = function(id) {
@@ -60,11 +60,20 @@ app.controller('CellTowerCombainCtrl', function($scope) {
     $scope.towers.cellTowers.splice( index, 1 );
   };
   $scope.cellTowerSearch = function() {
+    const cellTowers = parseCells($scope.towers)
+    const towers = {
+      radioType: $scope.towers.radioType,
+      cellTowers
+    }
 
-    console.log($scope.towers.cellTowers);
-    removeMarkers();
-    // pointSearch(JSON.stringify($scope.towers.cellTowers), 'https://cps.combain.com?key=jmfxzida7a0857qbgfg1', 'combainCell');
+    pointSearch(JSON.stringify(towers), $scope.url, 'combainCell');
   }
-
-
 });
+
+function parseCells(towers) {
+  const { cellTowers } = towers;
+  return cellTowers.map((cell) => {
+    const {id, ...rest} = cell
+    return rest;
+  })
+}
